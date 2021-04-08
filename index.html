@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="design.css">
+
+	<link rel="stylesheet" href="bootstrap-4.4.1/dist/css/bootstrap.min.css">
+  <script type="d3/d3.min.js"></script>
+  
+	<script src="bootstrap-4.4.1/dist/js/bootstrap.min.js"></script>
+  
+  
+    
+    
+
+</head>
+<body>
+  <div align="center">
+    <label  class="tab" style="text-transform: uppercase"><h1>Programmation Linéaire</h1></label> 
+  </div>
+	<div class="row">
+    <div class="col-sm-5">
+        <div class="card">
+            <div class="login-box">
+                <div class="login-snip">
+                    <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+                        <label for="tab-1" class="tab">Votre équation</label> 
+                        <input id="tab-2" type="radio" name="tab" class="sign-up">
+                       <label for="tab-2" class="tab"></label>
+
+                    <div class="PLforme">
+                        <div class="login">
+                            <div class="group"> 
+                                <label for="valpremier1" class="label">Equation 1</label> 
+                               
+                                <table >
+                                    <tr>
+                                        <td>
+                                             <input id="valpremier1" type="text" class="input" onkeyup="verif_integer(this)" >
+                                        </td>
+                                        <td class="variable">X1</td>
+                                         <td>
+                                            <select class="inputselect1" id="valsigne1">
+                                              <option selected>+</option>
+                                              <option value="1">-</option>
+                                             
+                                            </select>
+                                        </td>
+                                         <td>
+                                             <input id="valsecond1" type="text" class="input" >
+                                        </td>
+                                        <td class="variable">X2</td>
+                                        <td>
+                                            <select class="inputselect" id="valtrois1">
+                                              <option selected><=</option>
+                                              <option value="1">>=</option>
+                                              <option value="2">=</option>
+                                             
+                                            </select>
+                                        </td>
+                                        <td>
+                                             <input id="valquatre1" type="text" class="input" >
+                                        </td>
+                                    </tr>
+                                </table>
+
+                             </div>
+                            <div class="group" id="nouveauligne">
+                                
+                            </div>                    
+                              <div class="group">
+                                    <p></p>
+                                    <p></p>
+                                    <table >
+                                    <tr>
+                                         <td>
+                                            <select class="inputselect" >
+                                              <option selected>MAX</option>
+                                              <option value="1">MIN</option>
+                                            </select>
+                                        </td>
+                                        <td class="variable">Z=</td>
+                                        <td>
+                                             <input id="valdernierone" type="text" class="input" >
+                                        </td>
+                                        <td class="variable">X1</td>
+                                         <td>
+                                             <input id="valderniertwo" type="text" class="input" >
+                                        </td>
+                                        <td class="variable">X2</td>
+                                    </tr>
+                                </table>
+                                </div>
+                           
+                                  <div class="group"> 
+                                        <input type="button" onclick="Ajoutligne()" class="btn btn-primary" value="Ajouter une ligne">
+                                    </div>
+                            
+                             
+                                  <div class="group"> 
+                                        <input type="button" onclick=" graph()" class="btn btn-primary" value="Résoudre graphiquement">
+                                    </div>
+                                    
+                                 
+                            
+                        
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+    
+      </div>
+
+    <div class="col-sm-6" >
+      
+      <svg class="bar-chart">
+        
+      </svg>
+    </div>
+   
+
+
+  </div>
+
+
+<script  src="d3/d3.min.js"></script>
+<script type="text/javascript" src="index.js">  </script>
+  
+  <script type="text/javascript" src="graphe.js"></script>
+</body>
+</html>
