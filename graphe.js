@@ -1,7 +1,7 @@
 
 
 
-var dataset = [ 10 ];
+var dataset = [ 5 ];
 
 var width = 620, height = 620;
 
@@ -53,7 +53,7 @@ svg.append("g")
 
 function graph(){
 
-
+    
             var i = 1;
             while(document.getElementById('valpremier'+i+'') != null){
                             
@@ -68,10 +68,11 @@ function graph(){
                             .attr("y1", ((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset)))))
                             .attr("x2", ((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset)))))
                             .attr("y2", ((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))) ;
+                        // par rapport à notre repère d3 si y veut négatif? on augmente la valeur par rapport au 0 et sur l'axe d'abscisse si on veut x positif on augmente la valeur sur l'origine d3 en positif
 
 
                             
-                           
+                         //affiche la limite des solution  
                         var signe = obtsol(i);
 
                             if(signe === 1){
@@ -85,7 +86,7 @@ function graph(){
                                     +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+60)+" "
                                     +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+60)+","
                                     +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+60)+"")
-                                .attr('fill', 'green');
+                                .attr('fill', '#9da3a5');
 
                             }
                             if(signe === 0){
@@ -99,15 +100,16 @@ function graph(){
                                     +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-60)+" "
                                     +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-60)+","
                                     +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-50)+"")
-                                .attr('fill', 'green');
+                                .attr('fill', '#9da3a5');
                             }
+                        //fin affichage de la limite des solutions
 
 
 
                         i = i+1;         
                     }
 
-
+            //affichage du droite de solution min et max
             var sol = resolutionresult();
             svg.append("line")          
             .style("stroke", "red") 
@@ -115,8 +117,19 @@ function graph(){
             .attr("y1", ((height/2)-((sol[1])*(((height/2)-10)/d3.max(dataset)))))
             .attr("x2", ((width/2)+((sol[2])*(((width/2)-10)/d3.max(dataset)))))
             .attr("y2", ((height/2)-((sol[3])*(((height/2)-10)/d3.max(dataset))))) ;
+            //fin d'affichage du droite de solution min et max
 
             
+            //renouvelement des axes
+            svg.append("g")
+            //.attr("transform", "translate((0, 10)")
+            .attr("transform", "translate("+yAxisTranslate+", 10)")
+            .call(y_axis);
+
+
+        svg.append("g")
+            .attr("transform", "translate(10, "+xAxisTranslate+")")
+            .call(x_axis);
             
             /*
             svg.append('polygon')
@@ -135,6 +148,14 @@ function graph(){
                             .attr("fill","red");
 
                         */
+
+
+        var pointsol = dersol();
+            svg.append("circle")
+                 .attr("cx",((width/2)+((pointsol[0])*(((width/2)-10)/d3.max(dataset)))) )
+                 .attr("cy",((height/2)-((pointsol[1])*(((height/2)-10)/d3.max(dataset)))) )
+                 .attr("r",5)
+                 .attr("fill","blue");
 
 }
 

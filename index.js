@@ -93,12 +93,16 @@ function obtsol(i){
     valacomp = (width/2)+(height/2);
 
     var tab = pointprec(i);
+    //alert("tab0X = "+tab[0]+" tab1 Y="+tab[1]+" tab2 x="+tab[2]+" tab3 Y="+tab[3]);
+  //  alert("X1 ="+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+" Y1="+((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+" X2="+((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))+" Y2="+((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))));
+
 
     valcord = ((((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))
               + ((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))
               +((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))
               +((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset)))))/2);
 
+    //alert("vaalcomp="+valacomp+ " valcord "+valcord);
 
     if(document.getElementById('valtrois1').value === '<=')
     {
@@ -145,4 +149,78 @@ function pointprec(i){
            //location.href = "graphe.html?X1="+X+"&Y1="+Y;
            //document.getElementById('valpremier1').value = "88";
 
+}
+
+function TRpi(){
+    var p = [];
+    var i = 1;
+    var coordx;
+    var coordy;
+    var coord = [];
+            while(document.getElementById('valpremier'+i+'') != null){
+              
+              
+               var valpremier1,valsigne1,valsecond1,valtrois1,valquatre1,X,Y,XX,YY;
+               valpremier1 = document.getElementById('valpremier'+i+'').value;
+               valsigne1 = document.getElementById('valsigne'+i+'').value;
+               valsecond1 = document.getElementById('valsecond'+i+'').value;
+               valtrois1 = document.getElementById('valtrois'+i+'').value;
+               valquatre1 = document.getElementById('valquatre'+i+'').value;
+               
+               p.push(valpremier1,valsecond1,valquatre1);
+
+              i = i+1;
+            }
+
+            var rep = 0;
+
+            for(j = 0; j<(i-2); j++){
+              
+                var comp = rep+3;
+                for(q = j; q<i-1; q++){
+                  if(p[comp]!= null){
+                    
+                      coordy = (((p[comp])*(p[rep+2]))-((p[rep])*p[comp+2]))/(((p[rep+1])*(p[comp]))-((p[rep])*(p[comp+1])));
+                      coordx = (((p[rep+2])-(p[rep+1]*coordy))/p[rep]);
+                      coord.push(coordx,coordy);
+
+                    comp = comp+3;
+                  }
+                 }
+              
+
+              rep = rep+3;
+            }
+
+            //alert("taille du coord = "+ coord.length);
+           // alert("la taille du tableau coord = "+coord.length);
+          /* var ref = 0;
+            for(p = 0;p<(coord.length/2);p++){
+              alert("PI x="+coord[ref]+" et PI y="+coord[ref+1]);
+              ref = ref+2;
+              
+            }*/
+
+            return coord;
+            
+}
+
+function dersol(){
+  
+  var tab = TRpi();
+  var coord = [];
+  var c = 0;
+  var max = [0,0];
+  for(i=0; i<(tab.length/2);i++){
+    //alert("tab c="+tab[c]+" tab c+1="+tab[c+1]);  
+    //alert("max 0="+max[0]+" max1="+max[1]);
+    var res = ((tab[c]+tab[c+1]));
+    if((max[0]+max[1]) < ((tab[c]+tab[c+1]))){
+      max = [(tab[c]),(tab[c+1])];
+    }
+    coord.push(res);
+    c = c+2;
+  }
+  //alert("max(x) = "+max[0]+"max(y)="+max[1]);
+  return max;
 }
