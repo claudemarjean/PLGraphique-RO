@@ -97,24 +97,41 @@ function obtsol(i){
   //  alert("X1 ="+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+" Y1="+((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+" X2="+((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))+" Y2="+((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))));
 
 
-    valcord = ((((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))
+  //diso
+   /* valcord = ((((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))
               + ((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))
               +((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))
-              +((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset)))))/2);
+              +((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset)))))/2);*/
 
+    valcord =  document.getElementById('valquatre'+i+'').value;
+    //alert("valtrois1:"+document.getElementById('valtrois1').value);
     //alert("vaalcomp="+valacomp+ " valcord "+valcord);
 
-    if(document.getElementById('valtrois1').value === '<=')
+    if(document.getElementById('valtrois1').value === '1')
     {
-      if(valcord > valacomp){
+      //alert("inf ou egal");
+      if(valcord > 0){
         signe = 1;
         return signe;
       }
-      if(valcord < valacomp){
+      if(valcord < 0){
         signe = 0;
         return signe;
       }
       
+    }
+    if(document.getElementById('valtrois1').value === '2')
+    {
+      
+      //alert("sup ou egal");
+      if(valcord > 0){
+        signe = 0;
+        return signe;
+      }
+      if(valcord < 0){
+        signe = 1;
+        return signe;
+      }
     }
 }
 
@@ -224,3 +241,23 @@ function dersol(){
   //alert("max(x) = "+max[0]+"max(y)="+max[1]);
   return max;
 }
+
+function Csolar(i){
+  var valpremier1,valsigne1,valsecond1,valtrois1,valquatre1,X,Y,sol;
+           valpremier1 = document.getElementById('valpremier'+i+'').value;
+           valsigne1 = document.getElementById('valsigne'+i+'').value;
+           valsecond1 = document.getElementById('valsecond'+i+'').value;
+           valtrois1 = document.getElementById('valtrois'+i+'').value;
+           valquatre1 = document.getElementById('valquatre'+i+'').value;
+  X = valquatre1/valpremier1;
+  Y = valquatre1/valsecond1;
+  sol = X+Y;
+  return Y;
+
+}
+
+function obtmaxoumin(){
+  var val = document.getElementById('optmaxmin').value;
+  return val;
+}
+
