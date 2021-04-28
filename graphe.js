@@ -70,106 +70,219 @@ function graphmax(){
             var i = 1;
             while(document.getElementById('valpremier'+i+'') != null){
                             
-                         
+                        var testinfinit = testinfinity(i);
+                       // alert("testinfinity:"+testinfinit);
                         var tab = resolequation(i);
 
                         
-                        //créer les droites d'équation 
-                        svg.append("line")          
-                            .style("stroke", "Blue") 
-                            .attr("x1", ((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset)))))  
-                            .attr("y1", ((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset)))))
-                            .attr("x2", ((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset)))))
-                            .attr("y2", ((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))) ;
-                        // par rapport à notre repère d3 si y veut négatif? on augmente la valeur par rapport au 0 et sur l'axe d'abscisse si on veut x positif on augmente la valeur sur l'origine d3 en positif
+                        if(testinfinit == 0){
+                                         //créer les droites d'équation 
+                                        svg.append("line")          
+                                            .style("stroke", "Blue") 
+                                            .attr("x1", ((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset)))))  
+                                            .attr("y1", ((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset)))))
+                                            .attr("x2", ((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset)))))
+                                            .attr("y2", ((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))) ;
+                                        // par rapport à notre repère d3 si y veut négatif? on augmente la valeur par rapport au 0 et sur l'axe d'abscisse si on veut x positif on augmente la valeur sur l'origine d3 en positif
 
 
-                            
-                         //affiche la limite des solution  
-                        var signe = obtsol(i);
-                        var signedt = Csolar(i);
-                            //alert("signe="+signe);
-                            //alert("signedt"+signedt);
-                            if(signe === 1){
-                                if(signedt < 0){
-                                            svg.append('polygon')
-                                        //.attr('points', "50,50  200,50 220,70 70,70")
-                                        .attr('fill', 'white')
-                                        .transition()
-                                        .duration(2000)
-                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
-                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+5)+" "
-                                            +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))+5)+","
-                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+5)+" "
-                                            +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))+60)+","
-                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+60)+" "
-                                            +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+60)+","
-                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+60)+"")
-                                        .attr('fill', '#9da3a5');
+                                            
+                                         //affiche la limite des solution  
+                                        var signe = obtsol(i);
+                                        var signedt = Csolar(i);
+                                            //alert("signe="+signe);
+                                            //alert("signedt"+signedt);
+                                            if(signe === 1){
+                                                if(signedt < 0){
+                                                            svg.append('polygon')
+                                                        //.attr('points', "50,50  200,50 220,70 70,70")
+                                                        .attr('fill', 'white')
+                                                        .transition()
+                                                        .duration(2000)
+                                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+                                                            +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+                                                            +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))+60)+","
+                                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+60)+" "
+                                                            +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+60)+","
+                                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+60)+"")
+                                                        .attr('fill', '#9da3a5');
+                                                }
+
+                                                if(signedt > 0){
+                                                         svg.append('polygon')
+                                                        //.attr('points', "50,50  200,50 220,70 70,70")
+                                                        .attr('fill', 'white')
+                                                        .transition()
+                                                        .duration(2000)
+                                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+                                                            +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))-5)+","
+                                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+                                                            +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))-60)+","
+                                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-60)+" "
+                                                            +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-60)+","
+                                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-50)+"")
+                                                        .attr('fill', '#9da3a5');
+                                                }
+
+                                            }
+
+                                            if(signe === 0){
+                                                
+                                                if(signedt > 0){
+                                                            svg.append('polygon')
+                                                        //.attr('points', "50,50  200,50 220,70 70,70")
+                                                        .attr('fill', 'white')
+                                                        .transition()
+                                                        .duration(2000)
+                                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+                                                            +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+                                                            +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))+60)+","
+                                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+60)+" "
+                                                            +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+60)+","
+                                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+60)+"")
+                                                        .attr('fill', '#9da3a5');
+                                                }
+
+                                                if(signedt <0){
+                                                         svg.append('polygon')
+                                                        //.attr('points', "50,50  200,50 220,70 70,70")
+                                                        .attr('fill', 'white')
+                                                        .transition()
+                                                        .duration(2000)
+                                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+                                                            +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))-5)+","
+                                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+                                                            +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))-60)+","
+                                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-60)+" "
+                                                            +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-60)+","
+                                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-50)+"")
+                                                        .attr('fill', '#9da3a5');
+                                                }
+                                               
+                                            }
+                                            //fin affichage de la limite des solutions
+
+
+
+                                            i = i+1; 
+                        } 
+                        if (testinfinit == 1){
+                            //alert("en cours");
+                            var varzero = xouyzero(i);
+                                if(varzero == 0){
+                                   // alert("x est zéro et pour toi le programmeur va créer une fonction qui retourne seulement le X ou le Y");
+                                    var y = calcy(i);
+                                   // alert("y="+y);
+
+                                     svg.append("line")          
+                                            .style("stroke", "Blue") 
+                                            .attr("x1", ((width/2)+((y[0])*(((width/2)-10)/d3.max(dataset)))))  
+                                            .attr("y1", ((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset)))))
+                                            .attr("x2", ((width/2)+((y[2])*(((width/2)-10)/d3.max(dataset)))))
+                                            .attr("y2", ((height/2)-((y[3])*(((height/2)-10)/d3.max(dataset))))) ;
+                                          
+                                         //affiche la limite des solution  si x=0
+                                        var signe = obtsol(i);
+                                        var signedt = Csolar(i);
+                                            //alert("signe="+signe);
+                                            //alert("signedt"+signedt);
+                                            if(signe === 1){
+                                                if(signedt < 0){
+                                                            svg.append('polygon')
+                                                        //.attr('points', "50,50  200,50 220,70 70,70")
+                                                        .attr('fill', 'white')
+                                                        .transition()
+                                                        .duration(2000)
+                                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+                                                            +((width/2)+(((y[2])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((y[3])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+                                                            +(((width/2)+((y[2])*(((width/2)-10)/d3.max(dataset))))+60)+","
+                                                            +(((height/2)-((y[3])*(((height/2)-10)/d3.max(dataset))))+60)+" "
+                                                            +(((width/2)+((y[0])*(((width/2)-10)/d3.max(dataset))))+60)+","
+                                                            +(((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset))))+60)+"")
+                                                        .attr('fill', '#9da3a5');
+                                                }
+
+                                                if(signedt > 0){
+                                                         svg.append('polygon')
+                                                        //.attr('points', "50,50  200,50 220,70 70,70")
+                                                        .attr('fill', 'white')
+                                                        .transition()
+                                                        .duration(2000)
+                                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+                                                            +((width/2)+(((y[2])*(((width/2)-10)/d3.max(dataset))))-5)+","
+                                                            +(((height/2)-((y[3])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+                                                            +(((width/2)+((y[2])*(((width/2)-10)/d3.max(dataset))))-60)+","
+                                                            +(((height/2)-((y[3])*(((height/2)-10)/d3.max(dataset))))-60)+" "
+                                                            +(((width/2)+((y[0])*(((width/2)-10)/d3.max(dataset))))-60)+","
+                                                            +(((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset))))-50)+"")
+                                                        .attr('fill', '#9da3a5');
+                                                }
+
+                                            }
+
+                                            if(signe === 0){
+                                                
+                                                if(signedt > 0){
+                                                            svg.append('polygon')
+                                                        //.attr('points', "50,50  200,50 220,70 70,70")
+                                                        .attr('fill', 'white')
+                                                        .transition()
+                                                        .duration(2000)
+                                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+                                                            +((width/2)+(((y[2])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((y[3])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+                                                            +(((width/2)+((y[2])*(((width/2)-10)/d3.max(dataset))))+60)+","
+                                                            +(((height/2)-((y[3])*(((height/2)-10)/d3.max(dataset))))+60)+" "
+                                                            +(((width/2)+((y[0])*(((width/2)-10)/d3.max(dataset))))+60)+","
+                                                            +(((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset))))+60)+"")
+                                                        .attr('fill', '#9da3a5');
+                                                }
+
+                                                if(signedt <0){
+                                                         svg.append('polygon')
+                                                        //.attr('points', "50,50  200,50 220,70 70,70")
+                                                        .attr('fill', 'white')
+                                                        .transition()
+                                                        .duration(2000)
+                                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
+                                                            +(((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+                                                            +((width/2)+(((y[2])*(((width/2)-10)/d3.max(dataset))))-5)+","
+                                                            +(((height/2)-((y[3])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+                                                            +(((width/2)+((y[2])*(((width/2)-10)/d3.max(dataset))))-60)+","
+                                                            +(((height/2)-((y[3])*(((height/2)-10)/d3.max(dataset))))-60)+" "
+                                                            +(((width/2)+((y[0])*(((width/2)-10)/d3.max(dataset))))-60)+","
+                                                            +(((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset))))-50)+"")
+                                                        .attr('fill', '#9da3a5');
+                                                }
+                                               
+                                            }
                                 }
-
-                                if(signedt > 0){
-                                         svg.append('polygon')
-                                        //.attr('points', "50,50  200,50 220,70 70,70")
-                                        .attr('fill', 'white')
-                                        .transition()
-                                        .duration(2000)
-                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
-                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-5)+" "
-                                            +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))-5)+","
-                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-5)+" "
-                                            +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))-60)+","
-                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-60)+" "
-                                            +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-60)+","
-                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-50)+"")
-                                        .attr('fill', '#9da3a5');
-                                }
-
-                            }
-
-                            if(signe === 0){
-                                
-                                if(signedt > 0){
-                                            svg.append('polygon')
-                                        //.attr('points', "50,50  200,50 220,70 70,70")
-                                        .attr('fill', 'white')
-                                        .transition()
-                                        .duration(2000)
-                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
-                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+5)+" "
-                                            +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))+5)+","
-                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+5)+" "
-                                            +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))+60)+","
-                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+60)+" "
-                                            +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+60)+","
-                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+60)+"")
-                                        .attr('fill', '#9da3a5');
-                                }
-
-                                if(signedt <0){
-                                         svg.append('polygon')
-                                        //.attr('points', "50,50  200,50 220,70 70,70")
-                                        .attr('fill', 'white')
-                                        .transition()
-                                        .duration(2000)
-                                        .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
-                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-5)+" "
-                                            +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))-5)+","
-                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-5)+" "
-                                            +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))-60)+","
-                                            +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-60)+" "
-                                            +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-60)+","
-                                            +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-50)+"")
-                                        .attr('fill', '#9da3a5');
-                                }
-                               
-                            }
-                        //fin affichage de la limite des solutions
+                                if(varzero == 1){
+                                    var x = calcx(i);
+                                    svg.append("line")          
+                                            .style("stroke", "Blue") 
+                                            .attr("x1", ((width/2)+((x[0])*(((width/2)-10)/d3.max(dataset)))))  
+                                            .attr("y1", ((height/2)-((x[1])*(((height/2)-10)/d3.max(dataset)))))
+                                            .attr("x2", ((width/2)+((x[2])*(((width/2)-10)/d3.max(dataset)))))
+                                            .attr("y2", ((height/2)-((x[3])*(((height/2)-10)/d3.max(dataset))))) ;
 
 
+                                            
+                                      }
 
-                        i = i+1;         
-                    }
+                                i = i+1;
+                        }       
+            }
 
             //affichage du droite de solution min et max
             var sol = resolutionresult();
@@ -246,5 +359,5 @@ function graphmax(){
 }
 
 function graphmin(){
-    
+
 }

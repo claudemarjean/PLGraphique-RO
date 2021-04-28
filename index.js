@@ -43,6 +43,7 @@
 
            var tab = [X,Y,XX,YY];
 
+
            return tab;
 
            //location.href = "graphe.html?X1="+X+"&Y1="+Y;
@@ -261,3 +262,74 @@ function obtmaxoumin(){
   return val;
 }
 
+function testinfinity(i){
+    var valpremier1,valsecond1,valtrois1,valquatre1;
+             valpremier1 = document.getElementById('valpremier'+i+'').value;
+             valsecond1 = document.getElementById('valsecond'+i+'').value;
+             valtrois1 = document.getElementById('valtrois'+i+'').value;
+
+    if( valpremier1 ==0 || valsecond1 ==0 ){
+      return 1;
+    }
+    return 0;
+}
+
+function xouyzero(i){
+   var valpremier1,valsecond1;
+             valpremier1 = document.getElementById('valpremier'+i+'').value;
+             valsecond1 = document.getElementById('valsecond'+i+'').value;
+    if( valpremier1 == 0){
+      return 0;
+    }
+    if(valsecond1 == 0){
+      return 1;
+    }
+}
+
+
+function calcx(i){
+   var valpremier1,valsigne1,valsecond1,valtrois1,valquatre1,X,Y,XX,YY;
+           valpremier1 = document.getElementById('valpremier'+i+'').value;
+           valsigne1 = document.getElementById('valsigne'+i+'').value;
+           valsecond1 = document.getElementById('valsecond'+i+'').value;
+           valtrois1 = document.getElementById('valtrois'+i+'').value;
+           valquatre1 = document.getElementById('valquatre'+i+'').value;
+
+           X = valquatre1 /valpremier1;
+          
+           Y =   height  ;
+           
+           YY = -height ;
+           XX = valquatre1 /valpremier1;
+
+           
+          // alert('premier point :X='+X+'|Y='+Y+'deuxième point: X='+XX+'|Y='+YY);
+
+           var tab = [X,Y,XX,YY];
+
+           return tab;
+
+}
+
+function calcy(i){
+   var valpremier1,valsigne1,valsecond1,valtrois1,valquatre1,X,Y,XX,YY;
+           valpremier1 = document.getElementById('valpremier'+i+'').value;
+           valsigne1 = document.getElementById('valsigne'+i+'').value;
+           valsecond1 = document.getElementById('valsecond'+i+'').value;
+           valtrois1 = document.getElementById('valtrois'+i+'').value;
+           valquatre1 = document.getElementById('valquatre'+i+'').value;
+
+           X = -width
+          
+           Y =   valquatre1 /valsecond1 ;
+           
+           YY = valquatre1 /valsecond1 ;
+           XX = width ;
+
+           
+          // alert('premier point :X='+X+'|Y='+Y+'deuxième point: X='+XX+'|Y='+YY);
+
+           var tab = [X,Y,XX,YY];
+
+           return tab;
+}
