@@ -88,6 +88,8 @@ function resolutionresult(){
 
 }
 
+
+//return 1 si le point 0 est une solution
 function obtsol(i){
     var signe;
     var valcord;
@@ -111,6 +113,7 @@ function obtsol(i){
     if(document.getElementById('valtrois1').value === '1')
     {
       //alert("inf ou egal");
+
       if(valcord > 0){
         signe = 1;
         return signe;
@@ -223,7 +226,7 @@ function TRpi(){
             
 }
 
-function dersol(){
+function dersol(){      
   
   var tab = TRpi();
   var coord = [];
@@ -243,6 +246,7 @@ function dersol(){
   return max;
 }
 
+//retourne le point par rapport à l'axe Y
 function Csolar(i){
   var valpremier1,valsigne1,valsecond1,valtrois1,valquatre1,X,Y,sol;
            valpremier1 = document.getElementById('valpremier'+i+'').value;
@@ -254,6 +258,33 @@ function Csolar(i){
   Y = valquatre1/valsecond1;
   sol = X+Y;
   return Y;
+
+}
+
+function Csolardeux(i){
+  var valpremier1,valsigne1,valsecond1,valtrois1,valquatre1,X,Y,sol;
+           valpremier1 = document.getElementById('valpremier'+i+'').value;
+           valsigne1 = document.getElementById('valsigne'+i+'').value;
+           valsecond1 = document.getElementById('valsecond'+i+'').value;
+           valtrois1 = document.getElementById('valtrois'+i+'').value;
+           valquatre1 = document.getElementById('valquatre'+i+'').value;
+  X = valquatre1/valpremier1;
+  Y = valquatre1/valsecond1;
+  sol = X+Y;
+  return X;
+}
+
+function Csolarx(i){
+  var valpremier1,valsigne1,valsecond1,valtrois1,valquatre1,X,Y,sol;
+           valpremier1 = document.getElementById('valpremier'+i+'').value;
+           valsigne1 = document.getElementById('valsigne'+i+'').value;
+           valsecond1 = document.getElementById('valsecond'+i+'').value;
+           valtrois1 = document.getElementById('valtrois'+i+'').value;
+           valquatre1 = document.getElementById('valquatre'+i+'').value;
+  X = valquatre1/valpremier1;
+  Y = valquatre1/valsecond1;
+  sol = X+Y;
+  return X;
 
 }
 
@@ -297,9 +328,9 @@ function calcx(i){
 
            X = valquatre1 /valpremier1;
           
-           Y =   height  ;
+           Y =   - height  ;
            
-           YY = -height ;
+           YY = height ;
            XX = valquatre1 /valpremier1;
 
            
@@ -332,4 +363,70 @@ function calcy(i){
            var tab = [X,Y,XX,YY];
 
            return tab;
+}
+
+
+function dersolmin(){      
+
+  var tab = TRpi();
+  var coord = [];
+  var c = 0;
+  var min = [(tab[0]),(tab[1])];
+
+
+  //alert("var min 0:"+min[0]+" var min1:"+min[1]);
+  for(i=0; i<(tab.length/2);i++){
+    //alert("tab c="+tab[c]+" tab c+1="+tab[c+1]);  
+    //alert("max 0="+max[0]+" max1="+max[1]);
+    var res = ((tab[c]+tab[c+1]));
+    
+    if((min[0]+min[1]) > ((tab[c]+tab[c+1]))){
+
+      min = [(tab[c]),(tab[c+1])];
+    }
+    coord.push(res);
+    c = c+2;
+
+  }
+  //alert("max(x) = "+max[0]+"max(y)="+max[1]);
+  
+  return min;
+}
+
+
+//X et Y sont positif et 0 est solution
+function xypositzerosolut(){
+
+}
+// X et Y sont positf et 0 n'est pas une solution
+function xypositzerononsolut(){
+
+}
+// X et Y sont négatif et 0 est solution
+function xynegatzerosolut(){
+
+}
+
+// X et Y sont négatif et 0 n'est pas une solution
+function xynegatzerononsolut(){
+
+}
+
+// X poisitif et Y négatif 0 est solution
+function xpositynegatzerosolut(){
+
+}
+// X positif et Y négatif et 0 n'est pas une solution
+function xpositynegatzerononsolut(){
+
+}
+
+// X négatif et Y positif et 0 solution
+function xnegatypositzerosolut(){
+
+}
+
+// X négatif et Y positif et 0 n'est pas une solution
+function xnegatypositzerononsolut(){
+  
 }
