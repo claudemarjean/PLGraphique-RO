@@ -3,7 +3,7 @@
         function Ajoutligne(){
              i = i +1;
             
-            contenu = contenu + "<label for='valpremier"+i+"' class='label'>Equation "+ i+"</label> <table ><tr> <td> <input onkeyup='verif_integer(this)'' id='valpremier"+i+"' type='text' class='input'  ></td> <td class='variable'>X1</td><td><select class='inputselect1' id='valsigne"+i+"'> <option selected>+</option> <option value='1'>-</option> </select> </td><td><input onkeyup='verif_integer(this)' id='valsecond"+i+"' type='text' class='input' ></td> <td class='variable'>X2</td><td> <select class='inputselect' id='valtrois"+i+"'><option selected><=</option><option value='1'>>=</option><option value='2'>=</option> </select></td> <td> <input onkeyup='verif_integer(this)'' id='valquatre"+i+"' type='text' class='input' ></td> </tr> </table> ";
+            contenu = contenu + "<label for='valpremier"+i+"' class='label'>Equation "+ i+"</label> <table ><tr> <td> <input onkeyup='verif_integer(this)'' id='valpremier"+i+"' type='text' class='input'  ></td> <td class='variable'>X1</td><td><select class='inputselect1' id='valsigne"+i+"'> <option selected>+</option> <option value='1'>-</option> </select> </td><td><input onkeyup='verif_integer(this)' id='valsecond"+i+"' type='text' class='input' ></td> <td class='variable'>X2</td><td> <select class='inputselect' id='valtrois"+i+"'><option selected><=</option><option value='1'>>=</option> </select></td> <td> <input onkeyup='verif_integer(this)'' id='valquatre"+i+"' type='text' class='input' ></td> </tr> </table> ";
 
             document.getElementById('nouveauligne').innerHTML = contenu;
 
@@ -25,14 +25,17 @@
            valsecond1 = document.getElementById('valsecond'+i+'').value;
            valtrois1 = document.getElementById('valtrois'+i+'').value;
            valquatre1 = document.getElementById('valquatre'+i+'').value;
-
-           if((valpremier1<=0)|| (valsecond1<=0)){
-            X = -d3.max(dataset);
+           if((valpremier1<=0)&& (valsecond1<=0)){
+             X = d3.max(dataset);
            }
-             else{
-              X = d3.max(dataset);
+             else if((valpremier1<=0)|| (valsecond1<=0)){
+                X = -d3.max(dataset);
+              //X = 0;
              }
-          
+               else{
+                  X = d3.max(dataset);
+               }
+
            Y =   ( (valquatre1-(valpremier1 *(X)))/valsecond1)  ;
            
            YY = d3.max(dataset) ;
@@ -42,7 +45,7 @@
           // alert('premier point :X='+X+'|Y='+Y+'deuxième point: X='+XX+'|Y='+YY);
 
            var tab = [X,Y,XX,YY];
-
+           //alert("tab="+tab);
 
            return tab;
 
@@ -246,6 +249,28 @@ function dersol(){
   return max;
 }
 
+
+//retourne le point par rapport à l'axe Y
+function Valx(i){
+
+  var valpremier1,valquatre1,X;
+           valpremier1 = document.getElementById('valpremier'+i+'').value;
+           valquatre1 = document.getElementById('valquatre'+i+'').value;
+  X = valquatre1/valpremier1;
+
+  return X;
+
+}
+
+function Valy(i){
+  var valsecond1,valquatre1,Y;
+           valsecond1 = document.getElementById('valsecond'+i+'').value;
+           valquatre1 = document.getElementById('valquatre'+i+'').value;
+  Y = valquatre1/valsecond1;
+  return Y;
+
+}
+
 //retourne le point par rapport à l'axe Y
 function Csolar(i){
   var valpremier1,valsigne1,valsecond1,valtrois1,valquatre1,X,Y,sol;
@@ -371,7 +396,12 @@ function dersolmin(){
   var tab = TRpi();
   var coord = [];
   var c = 0;
-  var min = [(tab[0]),(tab[1])];
+
+  var max = dersol();
+  var min = [(max[0]),(max[1])];
+
+
+
 
 
   //alert("var min 0:"+min[0]+" var min1:"+min[1]);
@@ -388,45 +418,202 @@ function dersolmin(){
     c = c+2;
 
   }
+
+
+ 
+
   //alert("max(x) = "+max[0]+"max(y)="+max[1]);
   
   return min;
 }
 
+function dersolminfintroisd(){
+    var max = dersol();
+    var min = dersolmin();
+     var tab = TRpi();
+  var coord = [];
+  var c = 0;
+
+  for(i=0; i<(tab.length/2);i++){
+    //alert("tab c="+tab[c]+" tab c+1="+tab[c+1]);  
+    //alert("max 0="+max[0]+" max1="+max[1]);
+    var res = ((tab[c]+tab[c+1]));
+    
+    if((min[0]+min[1]) < ((tab[c]+tab[c+1])) && ((tab[c]+tab[c+1])) < (max[0]+max[1])){
+
+      min = [(tab[c]),(tab[c+1])];
+    }
+    coord.push(res);
+    c = c+2;
+
+    }
+    return min;
+  }
+
 
 //X et Y sont positif et 0 est solution
-function xypositzerosolut(){
-
+function xypositzerosolut(tab){
+    svg.append('polygon')
+    //.attr('points', "50,50  200,50 220,70 70,70")
+    .attr('fill', 'white')
+    .transition()
+    .duration(2000)
+    .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-5)+","
+        +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+        +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))-5)+","
+        +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+        +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))-60)+","
+        +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-60)+" "
+        +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-60)+","
+        +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-50)+"")
+    .attr('fill', '#9da3a5');
 }
+
 // X et Y sont positf et 0 n'est pas une solution
-function xypositzerononsolut(){
+function xypositzerononsolut(tab){
+ svg.append('polygon')
+    //.attr('points', "50,50  200,50 220,70 70,70")
+    .attr('fill', 'white')
+    .transition()
+    .duration(2000)
+    .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
+        +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+        +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))+5)+","
+        +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+        +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))+60)+","
+        +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+60)+" "
+        +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+60)+","
+        +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+50)+"")
+    .attr('fill', '#9da3a5');
 
 }
 // X et Y sont négatif et 0 est solution
-function xynegatzerosolut(){
-
+function xynegatzerosolut(tab){
+  svg.append('polygon')
+    //.attr('points', "50,50  200,50 220,70 70,70")
+    .attr('fill', 'white')
+    .transition()
+    .duration(2000)
+    .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
+        +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+        +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))+5)+","
+        +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+        +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))+60)+","
+        +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+60)+" "
+        +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+60)+","
+        +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+50)+"")
+    .attr('fill', '#9da3a5');
 }
 
 // X et Y sont négatif et 0 n'est pas une solution
-function xynegatzerononsolut(){
-
+function xynegatzerononsolut(tab){
+  svg.append('polygon')
+       //.attr('points', "50,50  200,50 220,70 70,70")
+       .attr('fill', 'white')
+       .transition()
+       .duration(2000)
+      .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-5)+","
+           +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+          +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))-5)+","
+           +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+           +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))-60)+","
+          +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-60)+" "
+           +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-60)+","
+           +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-60)+"")
+       .attr('fill', '#9da3a5');
 }
 
 // X poisitif et Y négatif 0 est solution
-function xpositynegatzerosolut(){
-
+function xpositynegatzerosolut(tab){
+  svg.append('polygon')
+       //.attr('points', "50,50  200,50 220,70 70,70")
+       .attr('fill', 'white')
+       .transition()
+       .duration(2000)
+      .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+5)+","
+           +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+          +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))+5)+","
+           +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+           +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))+60)+","
+          +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+60)+" "
+           +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+60)+","
+           +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+60)+"")
+       .attr('fill', '#9da3a5');
 }
 // X positif et Y négatif et 0 n'est pas une solution
-function xpositynegatzerononsolut(){
-
+function xpositynegatzerononsolut(tab){
+   svg.append('polygon')
+    //.attr('points', "50,50  200,50 220,70 70,70")
+    .attr('fill', 'white')
+    .transition()
+    .duration(2000)
+    .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-5)+","
+        +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+        +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))-5)+","
+        +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+        +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))-60)+","
+        +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-60)+" "
+        +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-60)+","
+        +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-50)+"")
+    .attr('fill', '#9da3a5');
 }
 
 // X négatif et Y positif et 0 solution
-function xnegatypositzerosolut(){
-
+function xnegatypositzerosolut(tab){
+   svg.append('polygon')
+    //.attr('points', "50,50  200,50 220,70 70,70")
+    .attr('fill', 'white')
+    .transition()
+    .duration(2000)
+    .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-5)+","
+        +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+        +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))-5)+","
+        +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-5)+" "
+        +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))-60)+","
+        +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))-60)+" "
+        +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-60)+","
+        +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))-50)+"")
+    .attr('fill', '#9da3a5');
 }
 
 // X négatif et Y positif et 0 n'est pas une solution
-function xnegatypositzerononsolut(){
-  
+function xnegatypositzerononsolut(tab){
+  svg.append('polygon')
+       //.attr('points', "50,50  200,50 220,70 70,70")
+       .attr('fill', 'white')
+       .transition()
+       .duration(2000)
+      .attr('points',""+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))-5)+","
+           +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+          +((width/2)+(((tab[2])*(((width/2)-10)/d3.max(dataset))))+5)+","
+           +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+5)+" "
+           +(((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))+60)+","
+          +(((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))+60)+" "
+           +(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+60)+","
+           +(((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+60)+"")
+       .attr('fill', '#9da3a5');
+}
+
+
+function Paramdataset(){
+  var valpremier1,valsecond1,valquatre1,X,Y,sol;
+  var max = 0; 
+   var i = 1;
+            while(document.getElementById('valpremier'+i+'') != null){
+                 valpremier1 = document.getElementById('valpremier'+i+'').value;
+                 valsecond1 = document.getElementById('valsecond'+i+'').value;
+                 valquatre1 = document.getElementById('valquatre'+i+'').value;
+                  if(valpremier1 > max){
+                    max = valpremier1;
+                  }
+                  if(valsecond1 > max){
+                    max = valsecond1;
+                  }
+                  if(valquatre1 > max){
+                    max = valquatre1;
+                  }
+              i = i + 1;
+            }
+            alert("retour du max="+max);
+            return max;
 }
