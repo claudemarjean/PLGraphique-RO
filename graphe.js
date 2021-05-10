@@ -64,6 +64,8 @@ function graph(){
         graphmin();
     }
     if(maxoumin == 2){  
+        var piv = trouverpointintersolution();
+        //alert("les point d'intersection solution sont:"+piv);
         graphmax();
     }
 
@@ -84,8 +86,9 @@ function graphmax(){
                         if(testinfinit == 0){
 
                                          //créer les droites d'équation 
-                                        svg.append("line")          
+                                        svg.append("line")    
                                             .style("stroke", "Blue") 
+                                            .attr("stroke-width", 1.5)
                                             .attr("x1", ((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset)))))  
                                             .attr("y1", ((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset)))))
                                             .attr("x2", ((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset)))))
@@ -201,7 +204,8 @@ function graphmax(){
                                    // alert("y="+y);
 
                                      svg.append("line")          
-                                            .style("stroke", "Blue") 
+                                            .style("stroke", "Blue")
+                                            .attr("stroke-width", 1.5) 
                                             .attr("x1", ((width/2)+((y[0])*(((width/2)-10)/d3.max(dataset)))))  
                                             .attr("y1", ((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset)))))
                                             .attr("x2", ((width/2)+((y[2])*(((width/2)-10)/d3.max(dataset)))))
@@ -295,6 +299,7 @@ function graphmax(){
                                     var x = calcx(i);
                                     svg.append("line")          
                                             .style("stroke", "Blue") 
+                                            .attr("stroke-width", 1.5)
                                             .attr("x1", ((width/2)+((x[0])*(((width/2)-10)/d3.max(dataset)))))  
                                             .attr("y1", ((height/2)-((x[1])*(((height/2)-10)/d3.max(dataset)))))
                                             .attr("x2", ((width/2)+((x[2])*(((width/2)-10)/d3.max(dataset)))))
@@ -395,6 +400,7 @@ function graphmax(){
             var pointsol = dersol();
               svg.append("line")          
             .style("stroke", "red") 
+            .attr("stroke-width", 2.5)
             .attr("x1", ((width/2)+((sol[0])*(((width/2)-10)/d3.max(dataset)))))  
             .attr("y1", ((height/2)-((sol[1])*(((height/2)-10)/d3.max(dataset)))))
             .attr("x2", ((width/2)+((sol[2])*(((width/2)-10)/d3.max(dataset)))))
@@ -452,23 +458,25 @@ function graphmax(){
                  .attr("r",5)
                  .attr("fill","blue");
             // affichage du solution
+           // affichage du solution
+        var cordx = (((width/2)+((pointsol[0])*(((width/2)-10)/d3.max(dataset))))+ 50);
+        var cordy = (((height/2)-((pointsol[1])*(((height/2)-10)/d3.max(dataset))))- 50);
             svg.append("rect")
-                .attr("x",500)
-                .attr("y",580)
+                .attr("x",cordx)
+                .attr("y",cordy)
                 .attr("width",150)
                 .attr("height",40);
             svg.append("text")
-             .attr("x", 510)
-             .attr("y", 600)
+             .attr("x", (cordx +10))
+             .attr("y", (cordy +20) )
              .attr("stroke", "#fff")
              .text("X1="+pointsol[0]);
 
             svg.append("text")
-             .attr("x", 510)
-             .attr("y", 615)
+             .attr("x", (cordx + 10))
+             .attr("y", (cordy + 35))
              .attr("stroke", "#fff")
              .text("X2="+pointsol[1]);
-
 
 
         //affiche la droite de solution parallèle à son origine
@@ -492,6 +500,7 @@ function graphmin(){
                 var tab = resolequation(i);
                 svg.append("line")          
                       .style("stroke", "Blue") 
+                      .attr("stroke-width", 1.5)
                          .attr("x1", ((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset)))))  
                          .attr("y1", ((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset)))))
                          .attr("x2", ((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset)))))
@@ -500,13 +509,14 @@ function graphmin(){
 
                  //affiche la limite des solution  
                  //signe retourne 1(oui) si zéro est solution et retourne 0 si 0 n'est pas une solution 
-                                     /*   var signe = obtsol(i);
+                                        var signe = obtsol(i);
                                         var signedt = Csolar(i);
                                          var valx = Valx(i);
                                         var valy = Valy(i);
                                         if(signe === 1){
                                               if( valx > 0 && valy > 0){
                                                 xypositzerononsolut(tab);
+
                                               }
                                               if( valx >0 && valy <0){
                                                 xpositynegatzerosolut(tab);
@@ -523,7 +533,15 @@ function graphmin(){
                                          if(signe === 0){
 
                                                  if( valx > 0 && valy > 0){
-                                                xypositzerononsolut(tab);
+                                                     if(valx > valy){
+                                                            xypositzerononsolut(tab);
+
+                                                     }
+                                                     if (valx < valy){
+                                                            xypositzerosolut(tab);
+
+                                                     }
+                                                
                                               }
                                               if( valx >0 && valy <0){
                                                 xpositynegatzerononsolut(tab);
@@ -536,7 +554,7 @@ function graphmin(){
                                               }
                                             //alert("signe="+signe);
                                             //alert("signedt"+signedt);
-                                        }*/
+                                        }
 
 
 
@@ -545,10 +563,11 @@ function graphmin(){
        //affiche la droite de solution min et max
        //valaka ia leti eh
             var sol = resolutionresult(); 
-            var pointsol = dersolminfintroisd();
+            var pointsol = dersolminfintroisdpary();
             //alert("pointsol:"+pointsol);
               svg.append("line")          
             .style("stroke", "red") 
+            .attr("stroke-width", 2.5)
             .attr("x1", (((width/2)+(width/3))+((sol[0])*(((width/2)-10)/d3.max(dataset)))))  
             .attr("y1", (((height/2)-(height/3))-((sol[1])*(((height/2)-10)/d3.max(dataset)))))
             .attr("x2", (((width/2)+(width/3))+((sol[2])*(((width/2)-10)/d3.max(dataset)))))
@@ -563,6 +582,18 @@ function graphmin(){
 
             //fin d'affichage du droite de solution min et max
 
+
+            //affiche la dernier point de solution
+            svg.append("circle")
+                 .attr("cx",((width/2)+((pointsol[0])*(((width/2)-10)/d3.max(dataset)))) )
+                 .attr("cy",((height/2)-((pointsol[1])*(((height/2)-10)/d3.max(dataset)))) )
+                 .attr("r",0)
+                 .transition()
+                 .duration(4000)
+                 .attr("cx",((width/2)+((pointsol[0])*(((width/2)-10)/d3.max(dataset)))) )
+                 .attr("cy",((height/2)-((pointsol[1])*(((height/2)-10)/d3.max(dataset)))) )
+                 .attr("r",5)
+                 .attr("fill","blue");
 
 
              //renouvelement des axes
@@ -579,20 +610,22 @@ function graphmin(){
 
 
         // affichage du solution
+        var cordx = (((width/2)+((pointsol[0])*(((width/2)-10)/d3.max(dataset))))+ 50);
+        var cordy = (((height/2)-((pointsol[1])*(((height/2)-10)/d3.max(dataset))))- 50);
             svg.append("rect")
-                .attr("x",500)
-                .attr("y",580)
+                .attr("x",cordx)
+                .attr("y",cordy)
                 .attr("width",150)
                 .attr("height",40);
             svg.append("text")
-             .attr("x", 510)
-             .attr("y", 600)
+             .attr("x", (cordx +10))
+             .attr("y", (cordy +20) )
              .attr("stroke", "#fff")
              .text("X1="+pointsol[0]);
 
             svg.append("text")
-             .attr("x", 510)
-             .attr("y", 615)
+             .attr("x", (cordx + 10))
+             .attr("y", (cordy + 35))
              .attr("stroke", "#fff")
              .text("X2="+pointsol[1]);
 }

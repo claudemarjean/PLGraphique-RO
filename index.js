@@ -3,7 +3,7 @@
         function Ajoutligne(){
              i = i +1;
             
-            contenu = contenu + "<label for='valpremier"+i+"' class='label'>Equation "+ i+"</label> <table ><tr> <td> <input onkeyup='verif_integer(this)'' id='valpremier"+i+"' type='text' class='input'  ></td> <td class='variable'>X1</td><td><select class='inputselect1' id='valsigne"+i+"'> <option selected>+</option> <option value='1'>-</option> </select> </td><td><input onkeyup='verif_integer(this)' id='valsecond"+i+"' type='text' class='input' ></td> <td class='variable'>X2</td><td> <select class='inputselect' id='valtrois"+i+"'><option selected><=</option><option value='1'>>=</option> </select></td> <td> <input onkeyup='verif_integer(this)'' id='valquatre"+i+"' type='text' class='input' ></td> </tr> </table> ";
+            contenu = contenu + "<label for='valpremier"+i+"' class='label'>Equation "+ i+"</label> <table ><tr> <td> <input onkeyup='verif_integer(this)'' id='valpremier"+i+"' type='text' class='input'  ></td> <td class='variable'>X1</td><td><select class='inputselect1' id='valsigne"+i+"'> <option selected>+</option> <option value='1'>-</option> </select> </td><td><input onkeyup='verif_integer(this)' id='valsecond"+i+"' type='text' class='input' ></td> <td class='variable'>X2</td><td> <select class='inputselect' id='valtrois"+i+"'><option selected value='1'><=</option><option value='2'>>=</option> </select></td> <td> <input onkeyup='verif_integer(this)'' id='valquatre"+i+"' type='text' class='input' ></td> </tr> </table> ";
 
             document.getElementById('nouveauligne').innerHTML = contenu;
 
@@ -112,8 +112,8 @@ function obtsol(i){
     valcord =  document.getElementById('valquatre'+i+'').value;
     //alert("valtrois1:"+document.getElementById('valtrois1').value);
     //alert("vaalcomp="+valacomp+ " valcord "+valcord);
-
-    if(document.getElementById('valtrois1').value === '1')
+    var valtroiss = document.getElementById('valtrois1').value;
+    if(valtroiss === '1')
     {
       //alert("inf ou egal");
 
@@ -127,7 +127,7 @@ function obtsol(i){
       }
       
     }
-    if(document.getElementById('valtrois1').value === '2')
+    if(valtroiss === '2')
     {
       
       //alert("sup ou egal");
@@ -224,7 +224,7 @@ function TRpi(){
               ref = ref+2;
               
             }*/
-
+            //alert("trpi="+coord);
             return coord;
             
 }
@@ -247,6 +247,19 @@ function dersol(){
   }
   //alert("max(x) = "+max[0]+"max(y)="+max[1]);
   return max;
+}
+
+function dersolpy(){
+    var tab = TRpi();
+    var c = 0;
+    var max = 0;
+    for(i = 0; i < (tab.length/2);i++){
+      if(max < tab[c+1]){
+        max = [(tab[c]),(tab[c+1])];
+      }
+      c = c+2;
+    }
+    return max;
 }
 
 
@@ -417,15 +430,31 @@ function dersolmin(){
     coord.push(res);
     c = c+2;
 
+
+
   }
 
-
- 
-
+  
   //alert("max(x) = "+max[0]+"max(y)="+max[1]);
   
   return min;
 }
+
+function dersolminpy(){
+    var tab = TRpi();
+    var c = 0;
+    var max = dersolpy();
+    var min = max;
+     for(i=0; i<(tab.length/2);i++){
+        //alert("hditra min="+min+ "et tab c+1 ="+tab[c+1]);
+        if(min[1] > tab[c+1]){
+          min = [(tab[c]),(tab[c+1])];
+         // alert("min anaty boucle="+min);
+        }
+        c = c+2;
+     }
+     return min;
+  }
 
 function dersolminfintroisd(){
     var max = dersol();
@@ -448,6 +477,13 @@ function dersolminfintroisd(){
 
     }
     return min;
+  }
+
+  function dersolminfintroisdpary(){
+
+    // alert("tato");
+     return dersolminpy();
+
   }
 
 
@@ -614,6 +650,41 @@ function Paramdataset(){
                   }
               i = i + 1;
             }
-            alert("retour du max="+max);
+           // alert("retour du max="+max);
             return max;
 }
+
+
+
+
+function trouverpointintersolution(){
+    var poininterall = TRpi();
+
+    var nouveaupi = [];
+    var valpremier1,valsigne1,valsecond1,valtrois1,valquatre1;
+   var i = 1;
+    while(document.getElementById('valpremier'+i+'') != null){
+
+                 valpremier1 = document.getElementById('valpremier'+i+'').value;
+                 valsigne1 = document.getElementById('valsigne'+i+'').value;
+                 valsecond1 = document.getElementById('valsecond'+i+'').value;
+                 valtrois1 = document.getElementById('valtrois'+i+'').value;
+                 valquatre1 = document.getElementById('valquatre'+i+'').value;
+                 var c = 0;
+                 alert("point fa taraiky be"+poininterall);
+                  for(q = 0; q < (poininterall.length/2); q++){
+                    var yacomp = 0;
+                     yacomp = ((valquatre1 - (valpremier1*poininterall[c]))/valsecond1);
+                     if (poininterall[c] <= yacomp) {
+                        nouveaupi.push(poininterall[c],poininterall[c+1]);
+                     }
+
+                    c = c +2;
+                  }
+                  poininterall = nouveaupi;
+                  nouveaupi = [];
+      i = i+1;
+    }
+    alert("point inter solution :"+poininterall);
+    return poininterall;
+  }
