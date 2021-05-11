@@ -195,7 +195,7 @@ function TRpi(){
 
               i = i+1;
             }
-
+            //alert("i="+i);
             var rep = 0;
 
             for(j = 0; j<(i-2); j++){
@@ -203,7 +203,7 @@ function TRpi(){
                 var comp = rep+3;
                 for(q = j; q<i-1; q++){
                   if(p[comp]!= null){
-                    
+                        
                       coordy = (((p[comp])*(p[rep+2]))-((p[rep])*p[comp+2]))/(((p[rep+1])*(p[comp]))-((p[rep])*(p[comp+1])));
                       coordx = (((p[rep+2])-(p[rep+1]*coordy))/p[rep]);
                       coord.push(coordx,coordy);
@@ -224,7 +224,7 @@ function TRpi(){
               ref = ref+2;
               
             }*/
-            //alert("trpi="+coord);
+           // alert("trpi taille="+((coord.length)/2));
             return coord;
             
 }
@@ -366,9 +366,9 @@ function calcx(i){
 
            X = valquatre1 /valpremier1;
           
-           Y =   - height  ;
+           Y =   - d3.max(dataset)  ;
            
-           YY = height ;
+           YY = d3.max(dataset) ;
            XX = valquatre1 /valpremier1;
 
            
@@ -388,12 +388,12 @@ function calcy(i){
            valtrois1 = document.getElementById('valtrois'+i+'').value;
            valquatre1 = document.getElementById('valquatre'+i+'').value;
 
-           X = -width
+           X = - d3.max(dataset);
           
            Y =   valquatre1 /valsecond1 ;
            
            YY = valquatre1 /valsecond1 ;
-           XX = width ;
+           XX = d3.max(dataset) ;
 
            
           // alert('premier point :X='+X+'|Y='+Y+'deuxième point: X='+XX+'|Y='+YY);
@@ -660,9 +660,11 @@ function Paramdataset(){
 function trouverpointintersolution(){
     var poininterall = TRpi();
 
+   // alert("les point d'intersection="+poininterall);
     var nouveaupi = [];
     var valpremier1,valsigne1,valsecond1,valtrois1,valquatre1;
    var i = 1;
+
     while(document.getElementById('valpremier'+i+'') != null){
 
                  valpremier1 = document.getElementById('valpremier'+i+'').value;
@@ -671,20 +673,412 @@ function trouverpointintersolution(){
                  valtrois1 = document.getElementById('valtrois'+i+'').value;
                  valquatre1 = document.getElementById('valquatre'+i+'').value;
                  var c = 0;
-                 alert("point fa taraiky be"+poininterall);
-                  for(q = 0; q < (poininterall.length/2); q++){
-                    var yacomp = 0;
-                     yacomp = ((valquatre1 - (valpremier1*poininterall[c]))/valsecond1);
-                     if (poininterall[c] <= yacomp) {
-                        nouveaupi.push(poininterall[c],poininterall[c+1]);
-                     }
+                 //si la condition est inferieur ou égal
+                 if(valtrois1 === '1' ){
+                            if(valpremier1 >  0 && valsecond1 > 0){
+                                  // alert("point fa taraiky be"+poininterall);
+                                for(q = 0; q < (poininterall.length/2); q++){
+                                  var yacomp = 0;
+                                   yacomp = ((valquatre1 - (valpremier1*poininterall[c]))/valsecond1);
+                                   //alert("poininterall = "+ poininterall[c+1]+" yacomp:"+yacomp);
+                                   if (poininterall[c+1] <= yacomp) {
+                                      nouveaupi.push(poininterall[c],poininterall[c+1]);
+                                   }
 
-                    c = c +2;
+                                  c = c +2;
+                                }
+                                poininterall = nouveaupi;
+                                nouveaupi = [];
+                            }
+                            if(valpremier1 >  0 && valsecond1 < 0){
+                                  // alert("point fa taraiky be"+poininterall);
+                                for(q = 0; q < (poininterall.length/2); q++){
+                                  var yacomp = 0;
+                                   yacomp = ((valquatre1 - (valpremier1*poininterall[c]))/valsecond1);
+                                   //alert("poininterall = "+ poininterall[c+1]+" yacomp:"+yacomp);
+                                   if (poininterall[c+1] >= yacomp) {
+                                      nouveaupi.push(poininterall[c],poininterall[c+1]);
+                                   }
+
+                                  c = c +2;
+                                }
+                                poininterall = nouveaupi;
+                                nouveaupi = [];
+                            }
+                            if(valpremier1 <  0 && valsecond1 > 0){
+                                  // alert("point fa taraiky be"+poininterall);
+                                for(q = 0; q < (poininterall.length/2); q++){
+                                  var yacomp = 0;
+                                   yacomp = ((valquatre1 - (valpremier1*poininterall[c]))/valsecond1);
+                                   //alert("poininterall = "+ poininterall[c+1]+" yacomp:"+yacomp);
+                                   if (poininterall[c+1] <= yacomp) {
+                                      nouveaupi.push(poininterall[c],poininterall[c+1]);
+                                   }
+
+                                  c = c +2;
+                                }
+                                poininterall = nouveaupi;
+                                nouveaupi = [];
+                            }
+                        
+
+                       if(valsecond1 === '0'){
+                            // alert("point fa taraiky be"+poininterall);
+                            for(q = 0; q < (poininterall.length/2); q++){
+                              var yacomp = 0;
+                               yacomp = (valquatre1/valpremier1);
+                               //alert("poininterall = "+ poininterall[c+1]+" yacomp:"+yacomp);
+                               if (poininterall[c] <= yacomp) {
+                                  nouveaupi.push(poininterall[c],poininterall[c+1]);
+                               }
+
+                              c = c +2;
+                            }
+                            poininterall = nouveaupi;
+                            nouveaupi = [];
+                       }
+
+                       if( valpremier1 === '0'){
+                           // alert("point fa taraiky be"+poininterall);
+                            for(q = 0; q < (poininterall.length/2); q++){
+                              var yacomp = 0;
+                               yacomp = (valquatre1/valsecond1);
+                               //alert("poininterall = "+ poininterall[c+1]+" yacomp:"+yacomp);
+                               if (poininterall[c+1] <= yacomp) {
+                                  nouveaupi.push(poininterall[c],poininterall[c+1]);
+                               }
+
+                              c = c +2;
+                            }
+                            poininterall = nouveaupi;
+                            nouveaupi = [];
+                       }
                   }
-                  poininterall = nouveaupi;
-                  nouveaupi = [];
+                  //si la condition est supérieur ou égal
+                if(valtrois1 === '2' ){
+                      if(valpremier1 >  0 && valsecond1 > 0){
+                                  // alert("point fa taraiky be"+poininterall);
+                                for(q = 0; q < (poininterall.length/2); q++){
+                                  var yacomp = 0;
+                                   yacomp = ((valquatre1 - (valpremier1*poininterall[c]))/valsecond1);
+                                   //alert("poininterall = "+ poininterall[c+1]+" yacomp:"+yacomp);
+                                   if (poininterall[c+1] >= yacomp) {
+                                      nouveaupi.push(poininterall[c],poininterall[c+1]);
+                                   }
+
+                                  c = c +2;
+                                }
+                                poininterall = nouveaupi;
+                                nouveaupi = [];
+                            }
+                      if(valpremier1 >  0 && valsecond1 < 0){
+                                  // alert("point fa taraiky be"+poininterall);
+                                for(q = 0; q < (poininterall.length/2); q++){
+                                  var yacomp = 0;
+                                   yacomp = ((valquatre1 - (valpremier1*poininterall[c]))/valsecond1);
+                                   //alert("poininterall = "+ poininterall[c+1]+" yacomp:"+yacomp);
+                                   if (poininterall[c+1] <= yacomp) {
+                                      nouveaupi.push(poininterall[c],poininterall[c+1]);
+                                   }
+
+                                  c = c +2;
+                                }
+                                poininterall = nouveaupi;
+                                nouveaupi = [];
+                            } 
+                       if(valpremier1 <  0 && valsecond1 > 0){
+                                  // alert("point fa taraiky be"+poininterall);
+                                for(q = 0; q < (poininterall.length/2); q++){
+                                  var yacomp = 0;
+                                   yacomp = ((valquatre1 - (valpremier1*poininterall[c]))/valsecond1);
+                                   //alert("poininterall = "+ poininterall[c+1]+" yacomp:"+yacomp);
+                                   if (poininterall[c+1] >= yacomp) {
+                                      nouveaupi.push(poininterall[c],poininterall[c+1]);
+                                   }
+
+                                  c = c +2;
+                                }
+                                poininterall = nouveaupi;
+                                nouveaupi = [];
+                            }    
+                      if(valsecond1 === '0'){
+                            // alert("point fa taraiky be"+poininterall);
+                            for(q = 0; q < (poininterall.length/2); q++){
+                              var yacomp = 0;
+                               yacomp = (valquatre1/valpremier1);
+                               //alert("poininterall = "+ poininterall[c+1]+" yacomp:"+yacomp);
+                               if (poininterall[c] >= yacomp) {
+                                  nouveaupi.push(poininterall[c],poininterall[c+1]);
+                               }
+
+                              c = c +2;
+                            }
+                            poininterall = nouveaupi;
+                            nouveaupi = [];
+                       }
+
+                       if( valpremier1 === '0'){
+                           // alert("point fa taraiky be"+poininterall);
+                            for(q = 0; q < (poininterall.length/2); q++){
+                              var yacomp = 0;
+                               yacomp = (valquatre1/valsecond1);
+                               //alert("poininterall = "+ poininterall[c+1]+" yacomp:"+yacomp);
+                               if (poininterall[c+1] >= yacomp) {
+                                  nouveaupi.push(poininterall[c],poininterall[c+1]);
+                               }
+
+                              c = c +2;
+                            }
+                            poininterall = nouveaupi;
+                            nouveaupi = [];
+                       }     
+                }
+                 
+                
       i = i+1;
     }
-    alert("point inter solution :"+poininterall);
+    //alert("point inter solution :"+poininterall);
+    //alert("matetita an");
     return poininterall;
   }
+
+
+
+function trouversolutionmax(){
+
+        var piv = trouverpointintersolution();
+        var maxxt = [];
+        var maxyt = [];
+        var maxxtn = [0,0];
+        var maxx = 0;
+        var maxy = 0;
+        var c = 0;
+        //alert("controleur");
+        var valdernierone, valderniertwo;
+        valdernierone = document.getElementById('valdernierone').value;
+        valderniertwo = document.getElementById('valderniertwo').value;
+
+        if( valdernierone > valderniertwo){
+            for(i = 0; i < (piv.length/2);i++){
+              if(piv[c] > maxx){
+                maxx = piv[c];
+              }
+              c = c+2;
+            }
+
+            c = 0;
+            for(i = 0; i < (piv.length/2);i++){
+              if(piv[c] == maxx){
+               // alert("piv: "+piv[c]+"  pivc+1: "+piv[c+1]);
+                maxxt.push(piv[c],piv[c+1]);
+              }
+              c = c+2;
+            }
+
+            c = 0;
+           // alert("maxxt @ty eh="+maxxt);
+           //alert("maxxtleght "+maxxt.length+ " maxxt= "+maxxt);
+
+            for(i = 0; i < (maxxt.length/2);i++){
+              //alert("maxxt+1: "+maxxt[c+1]+ " maxy="+maxy);
+              if(maxxt[c+1] > maxy){
+                maxy = maxxt[c+1];
+              }
+              c = c+2;
+            }
+           // alert("maxy="+maxy);
+
+            c = 0;
+            maxxtn = [];
+            for(i = 0; i < (maxxt.length/2);i++){
+              if(maxxt[c+1] == maxy){
+               // alert("fifn");
+                //maxxt = [];
+                maxxtn.push(maxxt[c],maxxt[c+1]);
+              }
+              c = c+2;
+            }
+
+
+        }
+
+        if( valdernierone < valderniertwo || valdernierone === valderniertwo){
+            for(i = 0; i < (piv.length/2);i++){
+              if(piv[c+1] > maxx){
+                maxx = piv[c+1];
+              }
+              c = c+2;
+            }
+
+            c = 0;
+            for(i = 0; i < (piv.length/2);i++){
+              if(piv[c+1] == maxx){
+               // alert("piv: "+piv[c]+"  pivc+1: "+piv[c+1]);
+                maxxt.push(piv[c],piv[c+1]);
+              }
+              c = c+2;
+            }
+
+            c = 0;
+           // alert("maxxt @ty eh="+maxxt);
+           //alert("maxxtleght "+maxxt.length+ " maxxt= "+maxxt);
+
+            for(i = 0; i < (maxxt.length/2);i++){
+              //alert("maxxt+1: "+maxxt[c+1]+ " maxy="+maxy);
+              if(maxxt[c] > maxy){
+                maxy = maxxt[c];
+              }
+              c = c+2;
+            }
+           // alert("maxy="+maxy);
+
+            c = 0;
+            maxxtn = [];
+            for(i = 0; i < (maxxt.length/2);i++){
+              if(maxxt[c] == maxy){
+               // alert("fifn");
+                //maxxt = [];
+                maxxtn.push(maxxt[c],maxxt[c+1]);
+              }
+              c = c+2;
+            }
+
+        }
+
+
+
+
+        //alert("solution="+maxxtn);
+
+        if(maxxtn.length === 0 ){
+          maxxtn = [0,0];
+        }
+
+        return maxxtn;
+}
+
+
+function trouversolutionmin(){
+  /*var pi = TRpi();
+  alert("pi="+pi);
+  var sol = trouverpointintersolution();
+  alert("sol="+sol);*/
+   var piv = trouverpointintersolution();
+        var maxxt = [];
+        var maxyt = [];
+        var maxxtn = [0,0];
+        var maxx = piv[0];
+        var maxy = 0;
+        var c = 0;
+        //alert("controleur");
+        var valdernierone, valderniertwo;
+        valdernierone = document.getElementById('valdernierone').value;
+        valderniertwo = document.getElementById('valderniertwo').value;
+
+        for(i = 0; i < (piv.length/2);i++){
+              //alert("maxxt+1: "+maxxt[c+1]+ " maxy="+maxy);
+              if(piv[c] > maxy){
+                maxy = piv[c];
+              }
+              c = c+2;
+            }
+
+
+
+        if( valdernierone > valderniertwo){
+            for(i = 0; i < (piv.length/2);i++){
+              if(piv[c] < maxx){
+                maxx = piv[c];
+              }
+              c = c+2;
+            }
+
+            c = 0;
+            for(i = 0; i < (piv.length/2);i++){
+              if(piv[c] == maxx){
+               // alert("piv: "+piv[c]+"  pivc+1: "+piv[c+1]);
+                maxxt.push(piv[c],piv[c+1]);
+              }
+              c = c+2;
+            }
+
+            c = 0;
+           // alert("maxxt @ty eh="+maxxt);
+           //alert("maxxtleght "+maxxt.length+ " maxxt= "+maxxt);
+
+            for(i = 0; i < (maxxt.length/2);i++){
+              //alert("maxxt+1: "+maxxt[c+1]+ " maxy="+maxy);
+              //alert("maxy ne ka:"+maxy);
+              if(maxxt[c+1] < maxy){
+                maxy = maxxt[c+1];
+              }
+              c = c+2;
+            }
+           // alert("maxy="+maxy);
+
+            c = 0;
+            maxxtn = [];
+            for(i = 0; i < (maxxt.length/2);i++){
+              if(maxxt[c+1] == maxy){
+               // alert("fifn");
+                //maxxt = [];
+                maxxtn.push(maxxt[c],maxxt[c+1]);
+              }
+              c = c+2;
+            }
+
+
+        }
+
+
+         if( valdernierone < valderniertwo || valdernierone === valderniertwo){
+            for(i = 0; i < (piv.length/2);i++){
+              if(piv[c+1] < maxx){
+                maxx = piv[c+1];
+              }
+              c = c+2;
+            }
+            c = 0;
+            for(i = 0; i < (piv.length/2);i++){
+              if(piv[c+1] == maxx){
+               // alert("piv: "+piv[c]+"  pivc+1: "+piv[c+1]);
+                maxxt.push(piv[c],piv[c+1]);
+              }
+              c = c+2;
+            }
+            maxxtn = maxxt;
+            //alert("maxxt: "+maxxt);
+
+            /*c = 0;
+           // alert("maxxt @ty eh="+maxxt);
+           //alert("maxxtleght "+maxxt.length+ " maxxt= "+maxxt);
+            for(i = 0; i < (maxxt.length/2);i++){
+              //alert("maxxt+1: "+maxxt[c+1]+ " maxy="+maxy);
+              if(maxxt[c] <= maxy){
+                maxy = maxxt[c];
+              }
+              c = c+2;
+            }
+           // alert("maxy="+maxy);
+
+            c = 0;
+            maxxtn = [];
+            for(i = 0; i < (maxxt.length/2);i++){
+              if(maxxt[c] == maxy){
+               // alert("fifn");
+                //maxxt = [];
+                maxxtn.push(maxxt[c],maxxt[c+1]);
+              }
+              c = c+2;
+            }*/
+
+        }
+
+
+        if(maxxtn.length === 0 ){
+          maxxtn = [0,0];
+        }
+
+       // alert("maxxtn = "+maxxtn);
+        return maxxtn;
+}
