@@ -833,6 +833,7 @@ function trouverpointintersolution(){
                             nouveaupi = [];
                        }     
                 }
+
                  
                 
       i = i+1;
@@ -957,9 +958,8 @@ function trouversolutionmax(){
         return maxxtn;
 }
 
-
 function trouversolutionmin(){
-  /*var pi = TRpi();
+/* var pi = TRpi();
   alert("pi="+pi);
   var sol = trouverpointintersolution();
   alert("sol="+sol);*/
@@ -1031,6 +1031,7 @@ function trouversolutionmin(){
         }
 
 
+
          if( valdernierone < valderniertwo || valdernierone === valderniertwo){
             for(i = 0; i < (piv.length/2);i++){
               if(piv[c+1] < maxx){
@@ -1047,7 +1048,7 @@ function trouversolutionmin(){
               c = c+2;
             }
             maxxtn = maxxt;
-            //alert("maxxt: "+maxxt);
+           // alert("maxxt: "+maxxt);
 
             /*c = 0;
            // alert("maxxt @ty eh="+maxxt);

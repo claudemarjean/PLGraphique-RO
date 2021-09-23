@@ -61,7 +61,7 @@ function graph(){
     var maxoumin = obtmaxoumin();
 
     if (maxoumin == 1){
-      var test = trouversolutionmin();
+      //var test = trouversolutionmin();
         graphmin();
     }
     if(maxoumin == 2){  
@@ -111,7 +111,7 @@ function graphmax(){
 
                                             //alert("signe y="+signe);
                                             //alert("signedt x:"+signedt);
-                                        if(signe === 1){
+                                        /*if(signe === 1){
                                               if( valx > 0 && valy > 0){
                                               
                                                 var valpremiertest,valsecondtest;
@@ -138,9 +138,11 @@ function graphmax(){
                                                 xnegatypositzerosolut(tab);
                                               }
 
-                                            }
+                                            }*/
+
+
                                              //signe retourne 1(oui) si zéro est solution et retourne 0 si 0 n'est pas une solution 
-                                         if(signe === 0){
+                                       /*  if(signe === 0){
                                                 var valpremiertest,valsecondtest;
                                                  valpremiertest = document.getElementById('valpremier'+i+'').value;
                                                  valsecondtest = document.getElementById('valsecond'+i+'').value;
@@ -200,10 +202,10 @@ function graphmax(){
                                                         .attr('fill', '#9da3a5');
                                                 }*/
                                                
-                                            }
+                                         //}
                                             //fin affichage de la limite des solutions
 
-
+                                            
 
                                             i = i+1; 
                         } 
@@ -234,7 +236,7 @@ function graphmax(){
                                         var valy = Valy(i);
                                             //alert("signe="+signe);
                                             //alert("signedt"+signedt);
-                                            if(signe === 1){
+                                           /* if(signe === 1){
                                                 if(signedt < 0){
                                                             svg.append('polygon')
                                                         //.attr('points', "50,50  200,50 220,70 70,70")
@@ -268,9 +270,9 @@ function graphmax(){
                                                            +(((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset))))-60)+"")
                                                        .attr('fill', '#9da3a5');
                                                 }
-                                            }
+                                            }*/
 
-                                            if(signe === 0){
+                                           /* if(signe === 0){
                                                 
                                                 if(signedt > 0){
 
@@ -308,7 +310,7 @@ function graphmax(){
                                                         .attr('fill', '#9da3a5');
                                                 }
                                                
-                                            }
+                                            }*/
                                 }
                                 if(varzero == 1){
                                     //y = 0
@@ -324,7 +326,7 @@ function graphmax(){
                                             var signe = obtsol(i);
                                             var signedt = Csolarx(i);
 
-                                            if(signe === 1){
+                                          /*  if(signe === 1){
                                                 if(signedt < 0){
                                                             svg.append('polygon')
                                                         //.attr('points', "50,50  200,50 220,70 70,70")
@@ -359,9 +361,9 @@ function graphmax(){
                                                         .attr('fill', '#9da3a5');
                                                 }
 
-                                            }
+                                            }*/
 
-                                            if(signe === 0){
+                                           /* if(signe === 0){
                                                 
                                                 
                                                 if(signedt > 0){
@@ -398,7 +400,7 @@ function graphmax(){
                                                         .attr('fill', '#9da3a5');
                                                 }
                                                
-                                            }
+                                            }*/
 
 
 
@@ -409,6 +411,40 @@ function graphmax(){
 
                                 i = i+1;
                         }       
+            }
+
+            //solution polygone
+            var valsol = trouverpointintersolution();
+            if(((valsol.length)/2) === 4){
+                  svg.append('polygon')
+                  //.attr('points', "50,50  200,50 220,70 70,70")
+                  .attr('fill', 'white')
+                  .transition()
+                  .duration(2000)
+                  .attr('points',""+(((width/2)+((valsol[0])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[1])*(((height/2)-10)/d3.max(dataset)))))+" "
+                                  +((width/2)+(((valsol[2])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[3])*(((height/2)-10)/d3.max(dataset)))))+" "
+                                  +(((width/2)+((valsol[6])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[7])*(((height/2)-10)/d3.max(dataset)))))+" "
+                                  +(((width/2)+((valsol[4])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[5])*(((height/2)-10)/d3.max(dataset)))))+"")
+                  .attr('fill', '#9da3a5');
+            }
+
+            if(((valsol.length)/2) === 3){
+                  svg.append('polygon')
+                  //.attr('points', "50,50  200,50 220,70 70,70")
+                  .attr('fill', 'white')
+                  .transition()
+                  .duration(2000)
+                  .attr('points',""+(((width/2)+((valsol[0])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[1])*(((height/2)-10)/d3.max(dataset)))))+" "
+                                  +((width/2)+(((valsol[2])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[3])*(((height/2)-10)/d3.max(dataset)))))+" "
+                                  +(((width/2)+((valsol[4])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[5])*(((height/2)-10)/d3.max(dataset)))))+" ")
+                  .attr('fill', '#9da3a5');
             }
 
             //affichage du droite de solution min et max
@@ -540,6 +576,7 @@ function graphmin(){
                                         var signedt = Csolar(i);
                                          var valx = Valx(i);
                                         var valy = Valy(i);
+                                       /*
                                         if(signe === 1){
                                               if( valx > 0 && valy > 0){
                                                 xypositzerononsolut(tab);
@@ -581,7 +618,7 @@ function graphmin(){
                                               }
                                             //alert("signe="+signe);
                                             //alert("signedt"+signedt);
-                                        }
+                                        }*/
                                          i = i +1;
                 }
 
@@ -613,7 +650,7 @@ function graphmin(){
                                         var valy = Valy(i);
                                             //alert("signe="+signe);
                                             //alert("signedt"+signedt);
-                                            if(signe === 1){
+                                          /*  if(signe === 1){
                                                 if(signedt < 0){
                                                             svg.append('polygon')
                                                         //.attr('points', "50,50  200,50 220,70 70,70")
@@ -647,9 +684,9 @@ function graphmin(){
                                                            +(((height/2)-((y[1])*(((height/2)-10)/d3.max(dataset))))-60)+"")
                                                        .attr('fill', '#9da3a5');
                                                 }
-                                            }
+                                            }*/
 
-                                            if(signe === 0){
+                                           /* if(signe === 0){
                                                 
                                                 if(signedt > 0){
 
@@ -687,7 +724,7 @@ function graphmin(){
                                                         .attr('fill', '#9da3a5');
                                                 }
                                                
-                                            }
+                                            }*/
                                 }
                                 if(varzero == 1){
                                     //y = 0
@@ -703,7 +740,7 @@ function graphmin(){
                                             var signe = obtsol(i);
                                             var signedt = Csolarx(i);
 
-                                            if(signe === 1){
+                                           /* if(signe === 1){
                                                 if(signedt < 0){
                                                             svg.append('polygon')
                                                         //.attr('points', "50,50  200,50 220,70 70,70")
@@ -738,9 +775,9 @@ function graphmin(){
                                                         .attr('fill', '#9da3a5');
                                                 }
 
-                                            }
+                                            }*/
 
-                                            if(signe === 0){
+                                           /* if(signe === 0){
                                                 
                                                 
                                                 if(signedt > 0){
@@ -777,7 +814,7 @@ function graphmin(){
                                                         .attr('fill', '#9da3a5');
                                                 }
                                                
-                                            }
+                                            }*/
 
 
 
@@ -794,6 +831,40 @@ function graphmin(){
 
 
                
+            }
+
+            //solution polygone
+            var valsol = trouverpointintersolution();
+            if(((valsol.length)/2) === 4){
+                  svg.append('polygon')
+                  //.attr('points', "50,50  200,50 220,70 70,70")
+                  .attr('fill', 'white')
+                  .transition()
+                  .duration(2000)
+                  .attr('points',""+(((width/2)+((valsol[0])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[1])*(((height/2)-10)/d3.max(dataset)))))+" "
+                                  +((width/2)+(((valsol[2])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[3])*(((height/2)-10)/d3.max(dataset)))))+" "
+                                  +(((width/2)+((valsol[6])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[7])*(((height/2)-10)/d3.max(dataset)))))+" "
+                                  +(((width/2)+((valsol[4])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[5])*(((height/2)-10)/d3.max(dataset)))))+"")
+                  .attr('fill', '#9da3a5');
+            }
+
+            if(((valsol.length)/2) === 3){
+                  svg.append('polygon')
+                  //.attr('points', "50,50  200,50 220,70 70,70")
+                  .attr('fill', 'white')
+                  .transition()
+                  .duration(2000)
+                  .attr('points',""+(((width/2)+((valsol[0])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[1])*(((height/2)-10)/d3.max(dataset)))))+" "
+                                  +((width/2)+(((valsol[2])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[3])*(((height/2)-10)/d3.max(dataset)))))+" "
+                                  +(((width/2)+((valsol[4])*(((width/2)-10)/d3.max(dataset)))))+","
+                                  +(((height/2)-((valsol[5])*(((height/2)-10)/d3.max(dataset)))))+" ")
+                  .attr('fill', '#9da3a5');
             }
        //affiche la droite de solution min et max
        //valaka ia leti eh
