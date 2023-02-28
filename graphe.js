@@ -76,7 +76,7 @@ function graph(){
 function graphmax(){
 
     
-            var i = 1;
+            let i = 1;
             while(document.getElementById('valpremier'+i+'') != null){
                             
                         var testinfinit = testinfinity(i);
@@ -555,7 +555,7 @@ function graphmax(){
 }
 
 function graphmin(){
-     var i = 1;
+     let i = 1;
             while(document.getElementById('valpremier'+i+'') != null){
                 var testinfinit = testinfinity(i);
                  // alert("testinfinity:"+testinfinit);
