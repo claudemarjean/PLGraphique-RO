@@ -8,9 +8,6 @@
             document.getElementById('nouveauligne').innerHTML = contenu;
 
         }
-
-        
-
         function resolequation(i){
           
            var tab = resolreturn(i);
@@ -99,19 +96,8 @@ function obtsol(i){
     valacomp = (width/2)+(height/2);
 
     var tab = pointprec(i);
-    //alert("tab0X = "+tab[0]+" tab1 Y="+tab[1]+" tab2 x="+tab[2]+" tab3 Y="+tab[3]);
-  //  alert("X1 ="+(((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))+" Y1="+((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))+" X2="+((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))+" Y2="+((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset))))));
-
-
-  //diso
-   /* valcord = ((((width/2)+((tab[0])*(((width/2)-10)/d3.max(dataset))))
-              + ((height/2)-((tab[1])*(((height/2)-10)/d3.max(dataset))))
-              +((width/2)+((tab[2])*(((width/2)-10)/d3.max(dataset))))
-              +((height/2)-((tab[3])*(((height/2)-10)/d3.max(dataset)))))/2);*/
 
     valcord =  document.getElementById('valquatre'+i+'').value;
-    //alert("valtrois1:"+document.getElementById('valtrois1').value);
-    //alert("vaalcomp="+valacomp+ " valcord "+valcord);
     var valtroiss = document.getElementById('valtrois1').value;
     if(valtroiss === '1')
     {
@@ -215,16 +201,6 @@ function TRpi(){
 
               rep = rep+3;
             }
-
-            //alert("taille du coord = "+ coord.length);
-           // alert("la taille du tableau coord = "+coord.length);
-          /* var ref = 0;
-            for(p = 0;p<(coord.length/2);p++){
-              alert("PI x="+coord[ref]+" et PI y="+coord[ref+1]);
-              ref = ref+2;
-              
-            }*/
-           // alert("trpi taille="+((coord.length)/2));
             return coord;
             
 }
@@ -236,8 +212,6 @@ function dersol(){
   var c = 0;
   var max = [0,0];
   for(i=0; i<(tab.length/2);i++){
-    //alert("tab c="+tab[c]+" tab c+1="+tab[c+1]);  
-    //alert("max 0="+max[0]+" max1="+max[1]);
     var res = ((tab[c]+tab[c+1]));
     if((max[0]+max[1]) < ((tab[c]+tab[c+1]))){
       max = [(tab[c]),(tab[c+1])];
@@ -245,7 +219,6 @@ function dersol(){
     coord.push(res);
     c = c+2;
   }
-  //alert("max(x) = "+max[0]+"max(y)="+max[1]);
   return max;
 }
 
@@ -396,7 +369,6 @@ function calcy(i){
            XX = d3.max(dataset) ;
 
            
-          // alert('premier point :X='+X+'|Y='+Y+'deuxième point: X='+XX+'|Y='+YY);
 
            var tab = [X,Y,XX,YY];
 
@@ -412,15 +384,7 @@ function dersolmin(){
 
   var max = dersol();
   var min = [(max[0]),(max[1])];
-
-
-
-
-
-  //alert("var min 0:"+min[0]+" var min1:"+min[1]);
   for(i=0; i<(tab.length/2);i++){
-    //alert("tab c="+tab[c]+" tab c+1="+tab[c+1]);  
-    //alert("max 0="+max[0]+" max1="+max[1]);
     var res = ((tab[c]+tab[c+1]));
     
     if((min[0]+min[1]) > ((tab[c]+tab[c+1]))){
@@ -433,9 +397,6 @@ function dersolmin(){
 
 
   }
-
-  
-  //alert("max(x) = "+max[0]+"max(y)="+max[1]);
   
   return min;
 }
@@ -464,8 +425,6 @@ function dersolminfintroisd(){
   var c = 0;
 
   for(i=0; i<(tab.length/2);i++){
-    //alert("tab c="+tab[c]+" tab c+1="+tab[c+1]);  
-    //alert("max 0="+max[0]+" max1="+max[1]);
     var res = ((tab[c]+tab[c+1]));
     
     if((min[0]+min[1]) < ((tab[c]+tab[c+1])) && ((tab[c]+tab[c+1])) < (max[0]+max[1])){
@@ -959,10 +918,6 @@ function trouversolutionmax(){
 }
 
 function trouversolutionmin(){
-/* var pi = TRpi();
-  alert("pi="+pi);
-  var sol = trouverpointintersolution();
-  alert("sol="+sol);*/
    var piv = trouverpointintersolution();
         var maxxt = [];
         var maxyt = [];
@@ -1048,30 +1003,6 @@ function trouversolutionmin(){
               c = c+2;
             }
             maxxtn = maxxt;
-           // alert("maxxt: "+maxxt);
-
-            /*c = 0;
-           // alert("maxxt @ty eh="+maxxt);
-           //alert("maxxtleght "+maxxt.length+ " maxxt= "+maxxt);
-            for(i = 0; i < (maxxt.length/2);i++){
-              //alert("maxxt+1: "+maxxt[c+1]+ " maxy="+maxy);
-              if(maxxt[c] <= maxy){
-                maxy = maxxt[c];
-              }
-              c = c+2;
-            }
-           // alert("maxy="+maxy);
-
-            c = 0;
-            maxxtn = [];
-            for(i = 0; i < (maxxt.length/2);i++){
-              if(maxxt[c] == maxy){
-               // alert("fifn");
-                //maxxt = [];
-                maxxtn.push(maxxt[c],maxxt[c+1]);
-              }
-              c = c+2;
-            }*/
 
         }
 
