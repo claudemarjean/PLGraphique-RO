@@ -226,3 +226,15 @@ a {
     color: #b3b3b3
 }
 
+footer {
+    background-color: #f2f2f2;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  small {
+    color: #777;
+    font-size: 14px;
+  }
+  
+
